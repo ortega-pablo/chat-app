@@ -10,3 +10,8 @@ Las dependencias instaladas para utilizar en el frontend son:
 
 - *Prettier :* Herramienta para dar formato al código.
 
+- *Axios :* Librería que facilita todo tipo de operaciones como cliente HTTP. Permite realizar solicitudes completamente configurable y recibir la respuesta para ser fácilmente procesada.
+
+- *React Router Dom :* Biblioteca de enrutamiento del lado del servidor y del cliente con todas las funciones para React. Permite implementar el enrutamiento dinámico en una aplicación web
+
+- *Styled Components :* Librería que permite dar estilo mediante código CSS a nuestra aplicación web
