@@ -15,3 +15,4 @@ Las dependencias instaladas para utilizar en el frontend son:
 - *React Router Dom :* Biblioteca de enrutamiento del lado del servidor y del cliente con todas las funciones para React. Permite implementar el enrutamiento dinámico en una aplicación web
 
 - *Styled Components :* Librería que permite dar estilo mediante código CSS a nuestra aplicación web
+
