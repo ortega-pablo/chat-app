@@ -1,6 +1,5 @@
-import app from "./app";
-import "./db";
+import app from './app';
+import './db';
 
-
-app.listen(app.get('port'))
-console.log(`Server is running on port ${app.get('port')}`)
+app.listen(app.get('port'));
+console.log(`Server is running on port ${app.get('port')}`);
