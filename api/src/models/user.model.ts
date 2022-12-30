@@ -5,6 +5,8 @@ export interface UserInterface extends Document {
   userName: string;
   email: string;
   password: string;
+  setAvatar: boolean;
+  avatarImage: string;
 }
 
 const userSchema = new Schema({
@@ -22,6 +24,14 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  setAvatar: {
+    type: Boolean,
+    default: false
+  },
+  avatarImage: {
+    type: String,
+    default: ''
   }
 });
 
