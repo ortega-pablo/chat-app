@@ -1,5 +1,17 @@
 import { Request, Response } from 'express';
-import User from '../models/user.model';
+import jwt from 'jsonwebtoken';
+import config from '../config/config';
+import User, { UserInterface } from '../models/user.model';
+
+function createToken(user: UserInterface) {
+  return jwt.sign(
+    { id: user.id, email: user.email, userName: user.userName },
+    config.jwtSecret,
+    {
+      expiresIn: 86400
+    }
+  );
+}
 
 export const signUp = async (
   req: Request,
@@ -22,7 +34,11 @@ export const signUp = async (
     password
   });
   await newUser.save();
-  return res.status(201).json(newUser);
+  const resUser = {
+    message: 'User created successfully',
+    token: createToken(newUser)
+  };
+  return res.status(201).json(resUser);
 };
 
 export const signIn = (_req: Request, res: Response) => {
