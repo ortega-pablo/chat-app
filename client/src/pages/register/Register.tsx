@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer } from './Register.style';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,26 +23,21 @@ function Register() {
     theme: 'dark'
   };
 
-  const emailRegex =
-    /^(([^<>()[]\\.,;:s@”]+(.[^<>()[]\\.,;:s@”]+)*)|(“.+”))@(([[0–9]{1,3}.[0–9]{1,3}.[0–9]{1,3}.[0–9]{1,3}])|(([a-zA-Z-0–9]+.)+[a-zA-Z]{2,}))$/;
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (handleValidations()) {
-      const { password, userName, email } = values;
-      await axios.post(registerRoute, {
-        userName,
-        email,
-        password
-      });
-    }
-  };
+  const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
 
   const handleValidations = () => {
     const { password, confirmPassword, userName, email } = values;
     if (userName.length < 3) {
       toast.error(
         'El nombre de usuario debe contener al menos 3 caracteres',
+        toastOptions
+      );
+      return false;
+    } else if (userName.length > 20) {
+      toast.error(
+        'El nombre de usuario debe contener como máximo 20 caracteres',
         toastOptions
       );
       return false;
@@ -62,6 +57,31 @@ function Register() {
     return true;
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (handleValidations()) {
+      const { password, userName, email } = values;
+      try {
+        const response = await axios.post(registerRoute, {
+          userName,
+          email,
+          password
+        });
+        if (response.data.status === false) {
+          toast.error(response.data.message, toastOptions);
+        }
+        if (response.data.status === true) {
+          localStorage.setItem('token', JSON.stringify(response.data.token));
+        }
+        navigate('/login');
+      } catch (error) {
+        if (error) {
+          toast.error('Error en el Servidor', toastOptions);
+        }
+      }
+    }
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
@@ -77,7 +97,7 @@ function Register() {
           <input
             type="text"
             placeholder="Nombre de usuario"
-            name="username"
+            name="userName"
             onChange={(e) => handleChange(e)}
           />
           <input
