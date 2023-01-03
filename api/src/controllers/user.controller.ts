@@ -48,6 +48,29 @@ export const signUp = async (
   }
 };
 
-export const signIn = (_req: Request, res: Response) => {
-  res.send('signIn');
+export const signIn = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    const isMatch = await user.comparePassword(password);
+    if (isMatch) {
+      const resUser = {
+        message: 'Login completed successfully',
+        token: createToken(user)
+      };
+      return res.status(200).json(resUser);
+    }
+    return res.status(400).json({ message: 'Incorrect email or password' });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ message: error.message });
+    }
+    return res.status(500).json({ message: 'Internal Server error.' });
+  }
 };

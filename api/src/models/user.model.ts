@@ -7,6 +7,7 @@ export interface UserInterface extends Document {
   password: string;
   setAvatar: boolean;
   avatarImage: string;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema({
