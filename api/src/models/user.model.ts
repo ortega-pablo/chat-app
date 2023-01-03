@@ -12,18 +12,23 @@ export interface UserInterface extends Document {
 const userSchema = new Schema({
   userName: {
     type: String,
-    required: true
+    required: true,
+    min: 3,
+    max: 20,
+    unique: true
   },
   email: {
     type: String,
     unique: true,
     required: true,
     lowercase: true,
-    trim: true
+    trim: true,
+    max: 50
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    min: 8
   },
   setAvatar: {
     type: Boolean,
