@@ -62,7 +62,7 @@ export const logIn = async (req: Request, res: Response): Promise<Response> => {
       const resUser = {
         message: 'Login realizado con éxito',
         token: createToken(user),
-        status: true
+        statusOk: true
       };
       return res.status(200).json(resUser);
     }

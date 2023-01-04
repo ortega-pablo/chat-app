@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer } from './Register.style';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
@@ -24,6 +24,12 @@ function Register() {
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/');
+    }
+  }, []);
 
   const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
 
@@ -70,7 +76,7 @@ function Register() {
         if (response.data.status === true) {
           localStorage.setItem('token', JSON.stringify(response.data.token));
         }
-        navigate('/login');
+        navigate('/');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           error.response

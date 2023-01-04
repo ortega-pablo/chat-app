@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormContainer } from './Login.style';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
@@ -22,6 +22,12 @@ function Login() {
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/');
+    }
+  }, []);
 
   const handleValidations = () => {
     const { password, email } = values;
@@ -49,7 +55,7 @@ function Login() {
         if (data.statusOk === true) {
           localStorage.setItem('token', JSON.stringify(data.token));
         }
-        navigate('/chat');
+        navigate('/');
       } catch (error) {
         if (axios.isAxiosError(error)) {
           error.response
