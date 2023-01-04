@@ -68,13 +68,13 @@ function Register() {
     if (handleValidations()) {
       const { password, userName, email } = values;
       try {
-        const response = await axios.post(registerRoute, {
+        const { data } = await axios.post(registerRoute, {
           userName,
           email,
           password
         });
-        if (response.data.status === true) {
-          localStorage.setItem('token', JSON.stringify(response.data.token));
+        if (data.statusOk === true) {
+          localStorage.setItem('token', JSON.stringify(data.token));
         }
         navigate('/');
       } catch (error) {

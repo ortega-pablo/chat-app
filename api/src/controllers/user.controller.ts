@@ -20,13 +20,16 @@ export const signUp = async (
   try {
     const { userName, email, password } = req.body;
     if (!userName || !email || !password) {
-      return res
-        .status(400)
-        .json({ message: 'Please, send your user name, email and password.' });
+      return res.status(400).json({
+        message: 'Por favor introducir nombre de usuario, email y contraseña.',
+        statusOk: false
+      });
     }
     const user = await User.findOne({ email: email });
     if (user) {
-      return res.status(400).json({ msg: 'The User already Exists' });
+      return res
+        .status(400)
+        .json({ message: 'El usuario ya existe', statusOk: false });
     }
 
     const newUser = new User({
@@ -36,15 +39,18 @@ export const signUp = async (
     });
     await newUser.save();
     const resUser = {
-      message: 'User created successfully',
-      token: createToken(newUser)
+      message: 'Usuario creado exitosamente',
+      token: createToken(newUser),
+      statusOk: true
     };
     return res.status(201).json(resUser);
   } catch (error) {
     if (error instanceof Error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message, statusOk: false });
     }
-    return res.status(500).json({ message: 'Internal Server error.' });
+    return res
+      .status(500)
+      .json({ message: 'Error en el Servidor.', statusOk: false });
   }
 };
 
