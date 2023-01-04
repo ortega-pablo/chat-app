@@ -67,15 +67,16 @@ function Register() {
           email,
           password
         });
-        if (response.data.status === false) {
-          toast.error(response.data.message, toastOptions);
-        }
         if (response.data.status === true) {
           localStorage.setItem('token', JSON.stringify(response.data.token));
         }
         navigate('/login');
       } catch (error) {
-        if (error) {
+        if (axios.isAxiosError(error)) {
+          error.response
+            ? toast.error(error.response.data.message, toastOptions)
+            : toast.error('Error en el Servidor', toastOptions);
+        } else {
           toast.error('Error en el Servidor', toastOptions);
         }
       }
