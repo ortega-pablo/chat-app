@@ -39,20 +39,23 @@ function Login() {
     event.preventDefault();
     if (handleValidations()) {
       const { password, email } = values;
+      console.log(loginRoute);
       try {
-        const response = await axios.post(loginRoute, {
+        const { data } = await axios.post(loginRoute, {
           email,
           password
         });
-        if (response.data.status === false) {
-          toast.error(response.data.message, toastOptions);
+        console.log('Esta es la data', data);
+        if (data.statusOk === true) {
+          localStorage.setItem('token', JSON.stringify(data.token));
         }
-        if (response.data.status === true) {
-          localStorage.setItem('token', JSON.stringify(response.data.token));
-        }
-        navigate('/login');
+        navigate('/chat');
       } catch (error) {
-        if (error) {
+        if (axios.isAxiosError(error)) {
+          error.response
+            ? toast.error(error.response.data.message, toastOptions)
+            : toast.error('Error en el Servidor', toastOptions);
+        } else {
           toast.error('Error en el Servidor', toastOptions);
         }
       }
