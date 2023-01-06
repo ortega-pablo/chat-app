@@ -92,7 +92,7 @@ export const decryptToken = async (
   try {
     const headerToken = req.header('Authorization');
     if (!headerToken) {
-      console.log('No recibo el token');
+      console.log('Token no enviado');
       return res.status(400).json({
         message: 'Token incorrecto.',
         statusOk: false
@@ -109,6 +109,45 @@ export const decryptToken = async (
     } catch (error) {
       return res.status(400).json({
         message: 'Token incorrecto.',
+        statusOk: false
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ message: error.message, statusOk: false });
+    }
+    return res
+      .status(500)
+      .json({ message: 'Error en el Servidor', statusOk: false });
+  }
+};
+
+export const setAvatar = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const id = req.params.userId;
+    const { setAvatar, avatarImage } = req.body;
+    if (!id) {
+      console.log('ID no enviado');
+      return res.status(400).json({
+        message: 'Token incorrecto.',
+        statusOk: false
+      });
+    }
+    try {
+      await User.findByIdAndUpdate(id, {
+        setAvatar,
+        avatarImage
+      });
+      return res.status(200).json({
+        message: 'Avatar seteado correctamente.',
+        statusOk: true
+      });
+    } catch (error) {
+      return res.status(400).json({
+        message: 'Error al setear avatar',
         statusOk: false
       });
     }
