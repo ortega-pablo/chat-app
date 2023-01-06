@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastOptions } from 'react-toastify/dist/types';
 import axios from 'axios';
-import { setAvatarRoute } from '../../utils/APIRoutes';
+import { decryptTokenRoute, setAvatarRoute } from '../../utils/APIRoutes';
 import { Container } from './SetAvatar.style';
 import { Buffer } from 'buffer';
 import Spinner from '../../components/spinner/Spinner';
@@ -31,7 +31,14 @@ function SetAvatar() {
     if (selectedAvatar === undefined) {
       toast.error('Selecciona un avatar', toastOptions);
     } else {
-        const token = await (localStorage.getitem('token') && JSON.parse(localStorage.getItem('token')))
+      const user = await axios.post(decryptTokenRoute, {
+        token: localStorage.getItem('token')
+      });
+      await axios.post(`${setAvatarRoute}/${user.data.id}`, {
+        setAvatar: true,
+        avatarImage: avatars[selectedAvatar]
+      });
+      navigate('/');
     }
   };
 
