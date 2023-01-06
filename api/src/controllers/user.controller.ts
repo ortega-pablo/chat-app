@@ -84,3 +84,40 @@ export const logIn = async (req: Request, res: Response): Promise<Response> => {
       .json({ message: 'Error en el Servidor', statusOk: false });
   }
 };
+
+export const decryptToken = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const headerToken = req.header('Authorization');
+    if (!headerToken) {
+      console.log('No recibo el token');
+      return res.status(400).json({
+        message: 'Token incorrecto.',
+        statusOk: false
+      });
+    }
+    const token = headerToken.replace('Bearer ', '');
+    try {
+      const user = jwt.verify(token, config.jwtSecret);
+      return res.status(200).json({
+        message: 'Usuario encontrado correctamente.',
+        statusOk: true,
+        user
+      });
+    } catch (error) {
+      return res.status(400).json({
+        message: 'Token incorrecto.',
+        statusOk: false
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ message: error.message, statusOk: false });
+    }
+    return res
+      .status(500)
+      .json({ message: 'Error en el Servidor', statusOk: false });
+  }
+};
