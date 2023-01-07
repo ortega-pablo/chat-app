@@ -28,17 +28,33 @@ function SetAvatar() {
   };
 
   const setProfilePicture = async () => {
+    console.log('Entro a setProfilePicture');
     if (selectedAvatar === undefined) {
       toast.error('Selecciona un avatar', toastOptions);
     } else {
-      const user = await axios.post(decryptTokenRoute, {
-        token: localStorage.getItem('token')
-      });
-      await axios.post(`${setAvatarRoute}/${user.data.id}`, {
-        setAvatar: true,
-        avatarImage: avatars[selectedAvatar]
-      });
-      navigate('/');
+      try {
+        console.log('Pido desencriptar el token');
+        const token = localStorage.getItem('token');
+        const hola = 'hola';
+        console.log(hola);
+        console.log(token);
+        const config = {
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        };
+        const user = await axios.post(decryptTokenRoute, {}, config);
+        console.log(user);
+        console.log('Ya se desencriptó');
+        await axios.put(`${setAvatarRoute}/${user.data.user.id}`, {
+          setAvatar: true,
+          avatarImage: avatars[selectedAvatar]
+        });
+        console.log('Ya se mandó');
+        navigate('/');
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
