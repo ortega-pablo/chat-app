@@ -27,6 +27,12 @@ function SetAvatar() {
     theme: 'dark'
   };
 
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      navigate('/login');
+    }
+  }, []);
+
   const setProfilePicture = async () => {
     console.log('Entro a setProfilePicture');
     if (selectedAvatar === undefined) {
@@ -54,6 +60,10 @@ function SetAvatar() {
         navigate('/');
       } catch (error) {
         console.log(error);
+        toast.error(
+          'Error al asignar avatar, por favor intente nuevamente.',
+          toastOptions
+        );
       }
     }
   };
