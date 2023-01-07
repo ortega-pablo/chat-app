@@ -74,7 +74,7 @@ function Register() {
           password
         });
         if (data.statusOk === true) {
-          localStorage.setItem('token', JSON.stringify(data.token));
+          localStorage.setItem('token', data.token);
         }
         navigate('/');
       } catch (error) {

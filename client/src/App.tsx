@@ -4,6 +4,8 @@ import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import './App.css';
 import Chat from './pages/chat/Chat';
+import SetAvatar from './pages/setAvatar/SetAvatar';
+import Spinner from './components/spinner/Spinner';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +14,8 @@ const App: React.FC = () => {
         <Route path="/" element={<Chat />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/setAvatar" element={<SetAvatar />} />
+        <Route path="/spinner" element={<Spinner />} />
       </Routes>
     </BrowserRouter>
   );
