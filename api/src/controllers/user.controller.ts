@@ -172,8 +172,9 @@ export const getUsers = async (
     const currentUser = req.params.userId;
     const users = await User.find({ _id: { $ne: currentUser } }).select([
       '_id',
-      'username',
+      'userName',
       'email',
+      'setAvatar',
       'avatarImage'
     ]);
     return res.status(200).json({
