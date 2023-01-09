@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Contacts from '../../components/cotacts/Contacts';
 import {
   currentUserRoute,
   decryptTokenRoute,
@@ -11,10 +12,12 @@ import { ChatContainer } from './Chat.style';
 
 function Chat() {
   const navigate = useNavigate();
-  const [contacts, setContacts] = useState<object[]>([]);
+  const [contacts, setContacts] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface>();
+  const [currentChat, setCurrentChat] = useState<UserInterface | undefined>(
+    undefined
+  );
   const token = localStorage.getItem('token');
-  console.log('Este es el primer token: ', token);
 
   const getCurrentUser = async (token: string) => {
     console.log('entro al get current');
@@ -37,6 +40,12 @@ function Chat() {
     setContacts(data.users);
   };
 
+  const handleChatChange = (chat: UserInterface) => {
+    console.log('Entro al handle de chat change');
+    setCurrentChat(chat);
+    console.log(currentChat);
+  };
+
   useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -57,7 +66,13 @@ function Chat() {
   }, [currentUser]);
   return (
     <ChatContainer>
-      <div className="container"></div>
+      <div className="container">
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChatChange}
+        />
+      </div>
     </ChatContainer>
   );
 }
