@@ -1,9 +1,14 @@
 import { Router } from 'express';
-import { getUsers, setAvatar } from '../controllers/user.controller';
+import {
+  currentUser,
+  getUsers,
+  setAvatar
+} from '../controllers/user.controller';
 
 const router = Router();
 
 router.put('/setAvatar/:userId', setAvatar);
-router.get('/:userId', getUsers);
+router.get('/allUsers/:userId', getUsers);
+router.get('/:userId', currentUser);
 
 export default router;
