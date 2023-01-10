@@ -53,7 +53,7 @@ function Login() {
         });
         console.log('Esta es la data', data);
         if (data.statusOk === true) {
-          localStorage.setItem('token', JSON.stringify(data.token));
+          localStorage.setItem('token', data.token);
         }
         navigate('/');
       } catch (error) {

@@ -164,3 +164,55 @@ export const setAvatar = async (
       .json({ message: 'Error en el Servidor', statusOk: false });
   }
 };
+export const getUsers = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const currentUser = req.params.userId;
+    const users = await User.find({ _id: { $ne: currentUser } }).select([
+      '_id',
+      'userName',
+      'email',
+      'avatarImage'
+    ]);
+    return res.status(200).json({
+      message: 'Usuarios encontrados:',
+      statusOk: true,
+      users
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ message: error.message, statusOk: false });
+    }
+    return res
+      .status(500)
+      .json({ message: 'Error en el Servidor', statusOk: false });
+  }
+};
+export const currentUser = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById({ _id: userId }).select([
+      '_id',
+      'userName',
+      'email',
+      'avatarImage'
+    ]);
+    return res.status(200).json({
+      message: 'Usuarios encontrados:',
+      statusOk: true,
+      user
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ message: error.message, statusOk: false });
+    }
+    return res
+      .status(500)
+      .json({ message: 'Error en el Servidor', statusOk: false });
+  }
+};
