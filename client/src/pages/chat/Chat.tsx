@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Contacts from '../../components/contacts/Contacts';
+import CurrentChat from '../../components/currentChat/CurrentChat';
 import Welcome from '../../components/welcome/Welcome';
 import {
   currentUserRoute,
@@ -73,7 +74,11 @@ function Chat() {
           currentUser={currentUser}
           changeChat={handleChatChange}
         />
-        <Welcome currentUser={currentUser} />
+        {currentChat === undefined ? (
+          <Welcome currentUser={currentUser} />
+        ) : (
+          <CurrentChat currentChat={currentChat}></CurrentChat>
+        )}
       </div>
     </ChatContainer>
   );
