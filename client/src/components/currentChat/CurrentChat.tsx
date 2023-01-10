@@ -1,6 +1,8 @@
 import React from 'react';
 import { UserInterface } from '../../utils/intefaces';
+import ChatInput from '../chatInput/ChatInput';
 import Logout from '../logout/Logout';
+import Messages from '../messages/Messages';
 import { Container } from './CurrentChat.style';
 
 type props = {
@@ -8,6 +10,9 @@ type props = {
 };
 
 function CurrentChat({ currentChat }: props) {
+  const handleSendMessage = async (message: string) => {
+    alert(message);
+  };
   return (
     <Container>
       <div className="chat-header">
@@ -24,8 +29,10 @@ function CurrentChat({ currentChat }: props) {
         </div>
         <Logout />
       </div>
-      <div className="chat-messages"></div>
-      <div className="chat-input"></div>
+      <div className="chat-messages">
+        <Messages />
+      </div>
+      <ChatInput handleSendMessage={handleSendMessage} />
     </Container>
   );
 }

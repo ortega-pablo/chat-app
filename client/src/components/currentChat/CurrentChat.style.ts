@@ -22,9 +22,9 @@ export const Container = styled.div`
           height: 3rem;
         }
       }
-      .username {
+      .user-name {
         h3 {
-          color: #d3d0d0;
+          color: white;
         }
       }
     }
