@@ -1,5 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import axios, { formToJSON } from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Contacts from '../../components/contacts/Contacts';
 import CurrentChat from '../../components/currentChat/CurrentChat';
@@ -7,13 +7,16 @@ import Welcome from '../../components/welcome/Welcome';
 import {
   currentUserRoute,
   decryptTokenRoute,
-  getAllUsersRoute
+  getAllUsersRoute,
+  host
 } from '../../utils/APIRoutes';
 import { UserInterface } from '../../utils/intefaces';
 import { ChatContainer } from './Chat.style';
+import io from 'socket.io-client';
 
 function Chat() {
   const navigate = useNavigate();
+  const socketClient = useRef<SocketIOClient.Socket>();
   const [contacts, setContacts] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface>();
   const [currentChat, setCurrentChat] = useState<UserInterface | undefined>(
@@ -48,6 +51,15 @@ function Chat() {
     console.log(currentChat);
   };
 
+  /* const handleSocketSend = (from: string, to: string, msg: string) => {
+    socketClient.current.emit('send-msg', {
+      from: from,
+      to: to,
+      message: msg
+    });
+
+  }; */
+
   useEffect(() => {
     if (!token) {
       navigate('/login');
@@ -55,6 +67,12 @@ function Chat() {
       getCurrentUser(token);
     }
   }, []);
+  useEffect(() => {
+    if (currentUser) {
+      socketClient.current = io(host);
+      socketClient.current.emit('add-user', currentUser._id);
+    }
+  });
   useEffect(() => {
     if (currentUser) {
       if (currentUser.avatarImage === '') {

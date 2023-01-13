@@ -6,6 +6,7 @@ export default {
     PASSWORD: process.env.MONGODB_PASSWORD
   },
   server: {
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || 'http://localhost:3000'
   }
 };
