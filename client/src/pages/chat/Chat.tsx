@@ -1,4 +1,4 @@
-import axios, { formToJSON } from 'axios';
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Contacts from '../../components/contacts/Contacts';
@@ -51,14 +51,18 @@ function Chat() {
     console.log(currentChat);
   };
 
-  /* const handleSocketSend = (from: string, to: string, msg: string) => {
-    socketClient.current.emit('send-msg', {
-      from: from,
-      to: to,
-      message: msg
-    });
-
-  }; */
+  const handleSocketSend = (
+    from: string | undefined,
+    to: string | undefined,
+    msg: string | undefined
+  ) => {
+    socketClient.current &&
+      socketClient.current.emit('send-msg', {
+        from: from,
+        to: to,
+        message: msg
+      });
+  };
 
   useEffect(() => {
     if (!token) {
@@ -98,6 +102,7 @@ function Chat() {
           <CurrentChat
             currentChat={currentChat}
             currentUser={currentUser}
+            handleSocketSend={handleSocketSend}
           ></CurrentChat>
         )}
       </div>

@@ -9,17 +9,28 @@ import { Container } from './CurrentChat.style';
 type props = {
   currentChat: UserInterface | undefined;
   currentUser: UserInterface | undefined;
+  handleSocketSend: (
+    from: string | undefined,
+    to: string | undefined,
+    msg: string
+  ) => void;
 };
 
-function CurrentChat({ currentChat, currentUser }: props) {
+function CurrentChat({ currentChat, currentUser, handleSocketSend }: props) {
   const [messages, setMessages] = useState<MessagesInterface[]>([]);
 
-  const handleSendMessage = async (message: string) => {
+  const handleSendMessage = async (msg: string) => {
+    handleSocketSend(currentUser?._id, currentChat?._id, msg);
+
     await axios.post(sendMessageRoute, {
       from: currentUser?._id,
       to: currentChat?._id,
-      message: message
+      message: msg
     });
+
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: msg });
+    setMessages(msgs);
   };
 
   useEffect(() => {
