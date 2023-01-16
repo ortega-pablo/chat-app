@@ -6,7 +6,9 @@ import './App.css';
 import Chat from './pages/chat/Chat';
 import SetAvatar from './pages/setAvatar/SetAvatar';
 import Spinner from './components/spinner/Spinner';
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:3000');
 const App: React.FC = () => {
   return (
     <BrowserRouter>

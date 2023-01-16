@@ -9,14 +9,13 @@ import {
   decryptTokenRoute,
   getAllUsersRoute,
   host
-} from '../../utils/APIRoutes';
-import { UserInterface } from '../../utils/intefaces';
+} from '../../config/APIRoutes';
+import { UserInterface } from '../../config/intefaces';
 import { ChatContainer } from './Chat.style';
-import io from 'socket.io-client';
 
 function Chat() {
   const navigate = useNavigate();
-  const socketClient = useRef<SocketIOClient.Socket>();
+  //const socketClient = useRef<SocketIOClient.Socket>();
   const [contacts, setContacts] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface>();
   const [currentChat, setCurrentChat] = useState<UserInterface | undefined>(
@@ -25,7 +24,6 @@ function Chat() {
   const token = localStorage.getItem('token');
 
   const getCurrentUser = async (token: string) => {
-    console.log('entro al get current');
     const config = {
       headers: {
         Authorization: 'Bearer ' + token
@@ -36,22 +34,18 @@ function Chat() {
       `${currentUserRoute}/${user.data.user.id}`
     );
     setCurrentUser(data.user);
-    console.log('Este es el current seteado: ', currentUser);
   };
 
   const getContacts = async (id: string) => {
-    console.log('entro al get contacts');
     const { data } = await axios.get(`${getAllUsersRoute}/${id}`);
     setContacts(data.users);
   };
 
   const handleChatChange = (chat: UserInterface) => {
-    console.log('Entro al handle de chat change');
     setCurrentChat(chat);
-    console.log(currentChat);
   };
 
-  const handleSocketSend = (
+  /* const handleSocketSend = (
     from: string | undefined,
     to: string | undefined,
     msg: string | undefined
@@ -62,7 +56,14 @@ function Chat() {
         to: to,
         message: msg
       });
-  };
+  }; */
+
+  useEffect(() => {
+    /*  if (currentUser) {
+      socketClient.current = io(host);
+      socketClient.current.emit('add-user', currentUser._id);
+    } */
+  }, [currentUser]);
 
   useEffect(() => {
     if (!token) {
@@ -72,10 +73,10 @@ function Chat() {
     }
   }, []);
   useEffect(() => {
-    if (currentUser) {
+    /* if (currentUser) {
       socketClient.current = io(host);
       socketClient.current.emit('add-user', currentUser._id);
-    }
+    } */
   });
   useEffect(() => {
     if (currentUser) {
@@ -83,10 +84,8 @@ function Chat() {
         navigate('/setAvatar');
       } else {
         getContacts(currentUser._id);
-        console.log('Este es el contacts', contacts);
       }
     }
-    console.log('No tengo current');
   }, [currentUser]);
   return (
     <ChatContainer>
@@ -102,7 +101,6 @@ function Chat() {
           <CurrentChat
             currentChat={currentChat}
             currentUser={currentUser}
-            handleSocketSend={handleSocketSend}
           ></CurrentChat>
         )}
       </div>

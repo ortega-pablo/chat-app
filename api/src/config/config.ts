@@ -8,6 +8,6 @@ export default {
   server: {
     port: Number(process.env.PORT) || 3000,
     host: process.env.HOST?.toString() || 'localhost',
-    corsOrigin: `http://localhost:${process.env.PORT || 3000}`
+    corsOrigin: `http://localhost:${process.env.PORT || 5173}`
   }
 };

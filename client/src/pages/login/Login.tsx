@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastOptions } from 'react-toastify/dist/types';
 import axios from 'axios';
-import { loginRoute } from '../../utils/APIRoutes';
+import { loginRoute } from '../../config/APIRoutes';
 function Login() {
   const [values, setValues] = useState({
     email: '',
@@ -45,13 +45,11 @@ function Login() {
     event.preventDefault();
     if (handleValidations()) {
       const { password, email } = values;
-      console.log(loginRoute);
       try {
         const { data } = await axios.post(loginRoute, {
           email,
           password
         });
-        console.log('Esta es la data', data);
         if (data.statusOk === true) {
           localStorage.setItem('token', data.token);
         }

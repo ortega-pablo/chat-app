@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { getMessagesRoute, sendMessageRoute } from '../../utils/APIRoutes';
-import { MessagesInterface, UserInterface } from '../../utils/intefaces';
+import { getMessagesRoute, sendMessageRoute } from '../../config/APIRoutes';
+import { MessagesInterface, UserInterface } from '../../config/intefaces';
 import ChatInput from '../chatInput/ChatInput';
 import Logout from '../logout/Logout';
 import { Container } from './CurrentChat.style';
@@ -9,18 +9,26 @@ import { Container } from './CurrentChat.style';
 type props = {
   currentChat: UserInterface | undefined;
   currentUser: UserInterface | undefined;
-  handleSocketSend: (
+  /* handleSocketSend: (
     from: string | undefined,
     to: string | undefined,
     msg: string
-  ) => void;
+  ) => void; */
 };
 
-function CurrentChat({ currentChat, currentUser, handleSocketSend }: props) {
+function CurrentChat({ currentChat, currentUser }: props) {
   const [messages, setMessages] = useState<MessagesInterface[]>([]);
 
+  const getMessages = async () => {
+    const response = await axios.post(getMessagesRoute, {
+      from: currentUser?._id,
+      to: currentChat?._id
+    });
+    return setMessages(response.data.projectMessages);
+  };
+
   const handleSendMessage = async (msg: string) => {
-    handleSocketSend(currentUser?._id, currentChat?._id, msg);
+    //handleSocketSend(currentUser?._id, currentChat?._id, msg);
 
     await axios.post(sendMessageRoute, {
       from: currentUser?._id,
@@ -28,19 +36,10 @@ function CurrentChat({ currentChat, currentUser, handleSocketSend }: props) {
       message: msg
     });
 
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+    getMessages();
   };
 
   useEffect(() => {
-    const getMessages = async () => {
-      const response = await axios.post(getMessagesRoute, {
-        from: currentUser?._id,
-        to: currentChat?._id
-      });
-      return setMessages(response.data.projectMessages);
-    };
     getMessages();
   }, [currentChat]);
   return (

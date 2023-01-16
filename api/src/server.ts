@@ -11,16 +11,14 @@ const server = http.createServer(app);
 
 const options = {
   cors: {
-    origin: config.server.corsOrigin,
-    credentials: true
+    origin: config.server.corsOrigin
   }
 };
 
 const io = new Server(server, options);
 
-server.listen(config.server.port, config.server.host, () => {
+server.listen(config.server.port, () => {
   console.log(`Server is running on port ${config.server.port}}`);
-  console.log(`http://${config.server.host}:${config.server.port}`);
-
-  socket({ io });
+  console.log(`Host: http://${config.server.host}:${config.server.port}`);
 });
+socket({ io });

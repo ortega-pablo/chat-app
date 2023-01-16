@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastOptions } from 'react-toastify/dist/types';
 import axios from 'axios';
-import { registerRoute } from '../../utils/APIRoutes';
+import { registerRoute } from '../../config/APIRoutes';
 function Register() {
   const [values, setValues] = useState({
     userName: '',
