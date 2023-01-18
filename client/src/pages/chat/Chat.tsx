@@ -12,10 +12,13 @@ import {
 } from '../../config/APIRoutes';
 import { UserInterface } from '../../config/intefaces';
 import { ChatContainer } from './Chat.style';
+import io from 'socket.io-client';
+import EVENTS from '../../config/events';
 
+//const socket = io(host);
 function Chat() {
   const navigate = useNavigate();
-  //const socketClient = useRef<SocketIOClient.Socket>();
+  const socketClient = useRef<SocketIOClient.Socket>();
   const [contacts, setContacts] = useState<UserInterface[]>([]);
   const [currentUser, setCurrentUser] = useState<UserInterface>();
   const [currentChat, setCurrentChat] = useState<UserInterface | undefined>(
@@ -59,10 +62,10 @@ function Chat() {
   }; */
 
   useEffect(() => {
-    /*  if (currentUser) {
+    if (currentUser) {
       socketClient.current = io(host);
-      socketClient.current.emit('add-user', currentUser._id);
-    } */
+      socketClient.current.emit(EVENTS.ADD_USER, currentUser._id);
+    }
   }, [currentUser]);
 
   useEffect(() => {
@@ -72,12 +75,7 @@ function Chat() {
       getCurrentUser(token);
     }
   }, []);
-  useEffect(() => {
-    /* if (currentUser) {
-      socketClient.current = io(host);
-      socketClient.current.emit('add-user', currentUser._id);
-    } */
-  });
+
   useEffect(() => {
     if (currentUser) {
       if (currentUser.avatarImage === '') {
@@ -101,6 +99,7 @@ function Chat() {
           <CurrentChat
             currentChat={currentChat}
             currentUser={currentUser}
+            socketClient={socketClient}
           ></CurrentChat>
         )}
       </div>
