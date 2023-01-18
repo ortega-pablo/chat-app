@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastOptions } from 'react-toastify/dist/types';
 import axios from 'axios';
-import { decryptTokenRoute, setAvatarRoute } from '../../utils/APIRoutes';
+import { decryptTokenRoute, setAvatarRoute } from '../../config/APIRoutes';
 import { Container } from './SetAvatar.style';
 import { Buffer } from 'buffer';
 import Spinner from '../../components/spinner/Spinner';
@@ -34,32 +34,23 @@ function SetAvatar() {
   }, []);
 
   const setProfilePicture = async () => {
-    console.log('Entro a setProfilePicture');
     if (selectedAvatar === undefined) {
       toast.error('Selecciona un avatar', toastOptions);
     } else {
       try {
-        console.log('Pido desencriptar el token');
         const token = localStorage.getItem('token');
-        const hola = 'hola';
-        console.log(hola);
-        console.log(token);
         const config = {
           headers: {
             Authorization: 'Bearer ' + token
           }
         };
         const user = await axios.post(decryptTokenRoute, {}, config);
-        console.log(user);
-        console.log('Ya se desencriptó');
         await axios.put(`${setAvatarRoute}/${user.data.user.id}`, {
           setAvatar: true,
           avatarImage: avatars[selectedAvatar]
         });
-        console.log('Ya se mandó');
         navigate('/');
       } catch (error) {
-        console.log(error);
         toast.error(
           'Error al asignar avatar, por favor intente nuevamente.',
           toastOptions
@@ -69,16 +60,12 @@ function SetAvatar() {
   };
 
   useEffect(() => {
-    console.log('entro en el useEffect');
     const getAvatars = async () => {
-      console.log('entro en el async');
       const data: string[] = [];
-      console.log(data);
       for (let i = 0; i < 4; i++) {
         const image = await axios.get(
           `${api}/${Math.round(Math.random() * 1000)}`
         );
-        console.log('Esto es image', image);
         const buffer = new Buffer(image.data);
         data.push(buffer.toString('base64'));
       }

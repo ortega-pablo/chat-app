@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserInterface } from '../../utils/intefaces';
+import { UserInterface } from '../../config/intefaces';
 import Robot from '../../assets/helloRobot.gif';
 import { WelcomeContainer } from './Welcome.style';
 

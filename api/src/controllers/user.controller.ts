@@ -91,7 +91,6 @@ export const decryptToken = async (
 ): Promise<Response> => {
   try {
     const headerToken = req.header('Authorization');
-    console.log(headerToken);
     if (!headerToken) {
       console.log('Token no enviado');
       return res.status(400).json({
@@ -102,7 +101,6 @@ export const decryptToken = async (
     const token = headerToken
       .replace('Bearer ', '')
       .slice(0, headerToken.length - 1);
-    console.log('Este es el token', token);
     try {
       const user = jwt.verify(token, config.jwtSecret);
       return res.status(200).json({

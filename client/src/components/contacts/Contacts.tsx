@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ContactsContainer } from './Contacts.style';
-import { UserInterface } from '../../utils/intefaces';
+import { UserInterface } from '../../config/intefaces';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
 
 type props = {
@@ -15,10 +15,8 @@ function Contacts({ contacts, currentUser, changeChat }: props) {
   const [Selected, setSelected] = useState<number | undefined>(undefined);
 
   const handleClickCurrentChat = (index: number, contact: UserInterface) => {
-    console.log('Entro al handle change');
     setSelected(index);
     changeChat(contact);
-    console.log('Ahora salgo');
   };
   useEffect(() => {
     if (currentUser) {
