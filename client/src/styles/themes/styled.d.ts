@@ -15,6 +15,8 @@ declare module 'styled-components' {
 
       green: string;
 
+      smile: string;
+
       background: {
         '1': string;
         '2': string;

@@ -48,19 +48,6 @@ function Chat() {
     setCurrentChat(chat);
   };
 
-  /* const handleSocketSend = (
-    from: string | undefined,
-    to: string | undefined,
-    msg: string | undefined
-  ) => {
-    socketClient.current &&
-      socketClient.current.emit('send-msg', {
-        from: from,
-        to: to,
-        message: msg
-      });
-  }; */
-
   useEffect(() => {
     if (currentUser) {
       socketClient.current = io(host);

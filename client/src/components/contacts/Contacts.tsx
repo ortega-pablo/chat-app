@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ContactsContainer } from './Contacts.style';
 import { UserInterface } from '../../config/intefaces';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
+import { FaUserCircle } from 'react-icons/fa';
 
 type props = {
   contacts: UserInterface[];
@@ -41,12 +42,18 @@ function Contacts({ contacts, currentUser, changeChat }: props) {
                   key={contact._id}
                   onClick={() => handleClickCurrentChat(index, contact)}
                 >
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt="avatar"
-                    />
-                  </div>
+                  {contact.avatarImage ? (
+                    <div className="avatar">
+                      <img
+                        src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                        alt="avatar"
+                      />
+                    </div>
+                  ) : (
+                    <div className="avatar">
+                      <FaUserCircle size={'2.5rem'} color={'grey'} />
+                    </div>
+                  )}
                   <div className="user-name">
                     <h3>{contact.userName}</h3>
                   </div>

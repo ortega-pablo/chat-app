@@ -6,11 +6,11 @@ export const LogoutButton = styled.button`
   align-items: center;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: #1caee7;
+  background-color: ${(props) => props.theme.colors.primary100};
   border: none;
   cursor: pointer;
   svg {
     font-size: 1.3rem;
-    color: #d3d0d0;
+    color: ${(props) => props.theme.colors.text[1]};
   }
 `;

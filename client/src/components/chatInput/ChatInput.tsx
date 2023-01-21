@@ -16,6 +16,7 @@ function ChatInput({ handleSendMessage }: props) {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleEmojiClick = (emojiObject: EmojiClickData, event: MouseEvent) => {
     let msg = message;
     msg += emojiObject.emoji;

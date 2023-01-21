@@ -13,6 +13,8 @@ export default {
 
     green: '#80D62F',
 
+    smile: '#ffc228',
+
     background: {
       '1': '#383838',
       '3': '#262626',

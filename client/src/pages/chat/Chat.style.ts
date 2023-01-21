@@ -8,15 +8,15 @@ export const ChatContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: #131324;
+  background-color: ${(props) => props.theme.colors.background[3]};
   .container {
     height: 85vh;
     width: 85vw;
-    background-color: #eeeeee10;
     display: grid;
-    grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
+    grid-template-columns: 30% 70%;
+
+    @media (max-width: 720px) {
+      grid-template-columns: 100%;
     }
   }
 `;

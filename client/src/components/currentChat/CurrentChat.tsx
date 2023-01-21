@@ -108,7 +108,7 @@ function CurrentChat({ currentChat, currentUser, socketClient }: props) {
               <div ref={scrollRef} key={uuidv4()}>
                 <div
                   className={`message ${
-                    message.fromSelf ? 'sended' : 'recieved'
+                    message.fromSelf ? 'sended' : 'received'
                   }`}
                 >
                   <div className="content">

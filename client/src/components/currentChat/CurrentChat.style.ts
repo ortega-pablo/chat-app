@@ -2,29 +2,28 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 9% 82% 9%;
   gap: 0.1rem;
   overflow: hidden;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 15% 70% 15%;
-  }
   .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    background-color: ${(props) => props.theme.colors.background[1]};
+
     .user-details {
       display: flex;
       align-items: center;
-      gap: 1rem;
       .avatar {
         img {
-          height: 3rem;
+          height: 2.5rem;
+          margin-right: 0.3rem;
         }
       }
       .user-name {
         h3 {
-          color: white;
+          color: ${(props) => props.theme.colors.text[1]};
         }
       }
     }
@@ -35,10 +34,11 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    background-color: ${(props) => props.theme.colors.background[2]};
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff40;
+        background-color: ${(props) => props.theme.colors.text[3]};
         width: 0.1rem;
         border-radius: 1rem;
       }
@@ -47,27 +47,33 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       .content {
-        max-width: 40%;
+        max-width: 70%;
         overflow-wrap: break-word;
         padding: 1rem;
         font-size: 1.1rem;
         border-radius: 1rem;
-        color: #d1d1d1;
-        @media screen and (min-width: 720px) and (max-width: 1080px) {
-          max-width: 70%;
-        }
+        color: ${(props) => props.theme.colors.text[1]};
       }
     }
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        padding: 0.5rem 0.8rem;
+        background-color: ${(props) => props.theme.colors.secondary40};
+        font-size: medium;
+        border-radius: 0.8rem;
+        border-bottom-right-radius: 0;
+        min-height: 2rem;
       }
     }
-    .recieved {
+    .received {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        padding: 0.5rem 0.8rem;
+        background-color: ${(props) => props.theme.colors.secondary80};
+        font-size: medium;
+        border-radius: 0.8rem;
+        border-top-left-radius: 0;
       }
     }
   }
