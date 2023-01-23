@@ -8,7 +8,7 @@ export const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: #131324;
+  background-color: ${(props) => props.theme.colors.background[3]};
   .brand {
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@ export const FormContainer = styled.div`
       height: 5rem;
     }
     h1 {
-      color: #d3d0d0;
+      color: ${(props) => props.theme.colors.text[1]};
       text-transform: uppercase;
       font-size: xx-large;
     }
@@ -26,26 +26,28 @@ export const FormContainer = styled.div`
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 20rem;
     gap: 2rem;
-    background-color: #eeeeee10;
+    background-color: ${(props) => props.theme.colors.background[1]};
     border-radius: 2rem;
     padding: 3rem 3rem;
     input {
       background-color: transparent;
       padding: 1rem;
-      border: 0.2rem solid #0a516d;
+      border: 0.2rem solid ${(props) => props.theme.colors.primary40};
       border-radius: 0.4rem;
-      color: white;
+      color: ${(props) => props.theme.colors.text[1]};
       font-size: 1rem;
       &:focus {
-        border: 0.2rem solid #1caee7;
+        border: 0.2rem solid ${(props) => props.theme.colors.primary100};
         outline: none;
       }
     }
     button {
-      background-color: #8d6a9f;
-      color: #d3d0d0;
+      background-color: ${(props) => props.theme.colors.secondary80};
+      color: ${(props) => props.theme.colors.text[1]};
       padding: 1rem 2rem;
       border: none;
       font-weight: bold;
@@ -54,19 +56,17 @@ export const FormContainer = styled.div`
       font-size: 1rem;
       text-transform: uppercase;
       &:hover {
-        background-color: #a663cc;
+        background-color: ${(props) => props.theme.colors.secondary100};
       }
     }
     span {
-      color: #d3d0d0;
+      text-align: center;
+      color: ${(props) => props.theme.colors.text[2]};
       a {
-        color: #105de2;
+        color: ${(props) => props.theme.colors.text.link};
         text-decoration: none;
         font-weight: bold;
       }
-    }
-    @media only screen and (max-width: 768px) {
-      max-width: 70vw;
     }
   }
 `;

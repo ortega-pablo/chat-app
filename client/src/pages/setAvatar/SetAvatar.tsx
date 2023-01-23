@@ -27,10 +27,23 @@ function SetAvatar() {
     theme: 'dark'
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem('token')) {
+  const token = localStorage.getItem('token');
+
+  const isLogin = async (token: string) => {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    };
+    await axios.post(decryptTokenRoute, {}, config).catch((error) => {
+      console.log(error);
+      localStorage.removeItem('token');
       navigate('/login');
-    }
+    });
+  };
+
+  useEffect(() => {
+    token && isLogin(token);
   }, []);
 
   const setProfilePicture = async () => {

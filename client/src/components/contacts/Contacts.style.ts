@@ -2,20 +2,29 @@ import styled from 'styled-components';
 
 export const ContactsContainer = styled.div`
   display: grid;
-  grid-template-rows: 10% 75% 15%;
+  grid-template-rows: 5rem auto 4rem;
   overflow: hidden;
-  background-color: #080420;
+  background-color: ${(props) => props.theme.colors.background[1]};
+  padding-bottom: 0.2rem;
+  min-height: max-content;
   .brand {
     display: flex;
     align-items: center;
-    gap: 1rem;
     justify-content: center;
+    background-color: ${(props) => props.theme.colors.background[2]};
     img {
-      height: 2rem;
+      height: 2.5rem;
+      margin-right: 0.3rem;
+      @media (max-width: 720px) {
+        display: none;
+      }
     }
     h3 {
-      color: #d3d0d0;
+      color: ${(props) => props.theme.colors.text[1]};
       text-transform: uppercase;
+      @media (max-width: 720px) {
+        display: none;
+      }
     }
   }
   .contacts {
@@ -24,20 +33,28 @@ export const ContactsContainer = styled.div`
     align-items: center;
     overflow: auto;
     gap: 0.8rem;
+    padding-top: 0.5rem;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff40;
+        background-color: ${(props) => props.theme.colors.background[1]};
         width: 0.1rem;
         border-radius: 1rem;
       }
     }
+    .switch {
+      @media (max-width: 720px) {
+        display: none;
+      }
+    }
     .contact {
-      background-color: #ffffff30;
-      min-height: 5rem;
+      background-color: ${(props) => props.theme.colors.background[1]};
+      max-height: 3rem;
       cursor: pointer;
       width: 90%;
       border-radius: 0.2rem;
+      border-bottom: 0.15rem solid
+        ${(props) => props.theme.colors.background[2]};
       padding: 0.4rem;
       display: flex;
       gap: 1rem;
@@ -45,44 +62,42 @@ export const ContactsContainer = styled.div`
       transition: 0.5s ease-in-out;
       .avatar {
         img {
-          height: 3rem;
+          height: 2.5rem;
         }
       }
       .user-name {
         h3 {
-          color: #d3d0d0;
+          color: ${(props) => props.theme.colors.text[2]};
           font-size: 1rem;
         }
       }
     }
     .selected {
-      background-color: #1caee7;
+      background-color: ${(props) => props.theme.colors.primary40};
     }
   }
   .current-user {
-    background-color: #1caee780;
+    background-color: ${(props) => props.theme.colors.primary80};
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+
     .avatar {
       img {
-        height: 4rem;
+        height: 2.5rem;
         max-inline-size: 100%;
+        margin-right: 0.3rem;
       }
     }
     .user-name {
-      h2 {
-        color: #d3d0d0;
-      }
-    }
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
       gap: 0.5rem;
-      .user-name {
-        h2 {
-          font-size: 1rem;
-        }
+      h2 {
+        color: ${(props) => props.theme.colors.text[1]};
+        font-size: 1rem;
       }
     }
+  }
+  @media (max-width: 720px) {
+    grid-template-rows: 0 calc(100vh - 12rem) 3rem;
   }
 `;

@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { ContactsContainer } from './Contacts.style';
 import { UserInterface } from '../../config/intefaces';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
+import { FaUserCircle } from 'react-icons/fa';
+import SwitchTheme from '../switch/SwitchTheme';
 
 type props = {
   contacts: UserInterface[];
   currentUser: UserInterface | undefined;
   changeChat: (chat: UserInterface) => void;
+  changeTheme(): void;
 };
 
-function Contacts({ contacts, currentUser, changeChat }: props) {
+function Contacts({ contacts, currentUser, changeChat, changeTheme }: props) {
   const [userName, setUserName] = useState<string>();
   const [userImage, setUserImage] = useState<string>();
   const [Selected, setSelected] = useState<number | undefined>(undefined);
@@ -34,6 +37,9 @@ function Contacts({ contacts, currentUser, changeChat }: props) {
             <h3>Chat App</h3>
           </div>
           <div className="contacts">
+            <div className="switch">
+              <SwitchTheme changeTheme={changeTheme} />
+            </div>
             {contacts.map((contact, index) => {
               return (
                 <div
@@ -41,12 +47,18 @@ function Contacts({ contacts, currentUser, changeChat }: props) {
                   key={contact._id}
                   onClick={() => handleClickCurrentChat(index, contact)}
                 >
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt="avatar"
-                    />
-                  </div>
+                  {contact.avatarImage ? (
+                    <div className="avatar">
+                      <img
+                        src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                        alt="avatar"
+                      />
+                    </div>
+                  ) : (
+                    <div className="avatar">
+                      <FaUserCircle size={'2.5rem'} color={'grey'} />
+                    </div>
+                  )}
                   <div className="user-name">
                     <h3>{contact.userName}</h3>
                   </div>

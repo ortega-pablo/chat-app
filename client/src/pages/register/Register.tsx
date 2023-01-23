@@ -6,8 +6,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastOptions } from 'react-toastify/dist/types';
 import axios from 'axios';
-import { registerRoute } from '../../config/APIRoutes';
-function Register() {
+import { decryptTokenRoute, registerRoute } from '../../config/APIRoutes';
+import SwitchTheme from '../../components/switch/SwitchTheme';
+
+type props = {
+  changeTheme(): void;
+};
+function Register({ changeTheme }: props) {
   const [values, setValues] = useState({
     userName: '',
     email: '',
@@ -25,10 +30,28 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token');
+
+  const isLogin = async (token: string) => {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    };
+    await axios
+      .post(decryptTokenRoute, {}, config)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        localStorage.removeItem('token');
+        navigate('/login');
+      });
+  };
+
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      navigate('/');
-    }
+    token && isLogin(token);
   }, []);
 
   const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
@@ -129,6 +152,9 @@ function Register() {
           <span>
             Ya tienes una cuenta? <Link to="/login">Login</Link>
           </span>
+          <div className="switch">
+            <SwitchTheme changeTheme={changeTheme} />
+          </div>
         </form>
       </FormContainer>
       <ToastContainer />

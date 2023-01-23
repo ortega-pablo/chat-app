@@ -6,8 +6,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastOptions } from 'react-toastify/dist/types';
 import axios from 'axios';
-import { loginRoute } from '../../config/APIRoutes';
-function Login() {
+import { decryptTokenRoute, loginRoute } from '../../config/APIRoutes';
+import SwitchTheme from '../../components/switch/SwitchTheme';
+
+type props = {
+  changeTheme(): void;
+};
+function Login({ changeTheme }: props) {
   const [values, setValues] = useState({
     email: '',
     password: ''
@@ -23,10 +28,28 @@ function Login() {
 
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token');
+
+  const isLogin = async (token: string) => {
+    const config = {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    };
+    await axios
+      .post(decryptTokenRoute, {}, config)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+        localStorage.removeItem('token');
+        navigate('/login');
+      });
+  };
+
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      navigate('/');
-    }
+    token && isLogin(token);
   }, []);
 
   const handleValidations = () => {
@@ -94,6 +117,9 @@ function Login() {
           <span>
             Aún no tienes una cuenta? <Link to="/register">Registrarse</Link>
           </span>
+          <div className="switch">
+            <SwitchTheme changeTheme={changeTheme} />
+          </div>
         </form>
       </FormContainer>
       <ToastContainer />

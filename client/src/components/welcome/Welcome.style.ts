@@ -2,14 +2,28 @@ import styled from 'styled-components';
 
 export const WelcomeContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  color: #d3d0d0;
+  background-color: ${(props) => props.theme.colors.background[2]};
+  color: ${(props) => props.theme.colors.text[1]};
   flex-direction: column;
+  font-size: 1rem;
+  text-align: center;
   img {
-    height: 20rem;
+    height: 60vh;
+    @media (max-width: 900px) {
+      height: 40vh;
+    }
+    @media (max-width: 720px) {
+      height: 30vh;
+    }
   }
   span {
-    color: #1caee7;
+    color: ${(props) => props.theme.colors.primary100};
+  }
+  @media (max-width: 900px) {
+    height: calc(100vh - 9rem);
+    width: 95vw;
   }
 `;

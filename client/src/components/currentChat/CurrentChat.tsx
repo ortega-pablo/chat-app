@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getMessagesRoute, sendMessageRoute } from '../../config/APIRoutes';
 import EVENTS from '../../config/events';
-import { MessagesInterface, UserInterface } from '../../config/intefaces';
+import { UserInterface } from '../../config/intefaces';
 import ChatInput from '../chatInput/ChatInput';
 import Logout from '../logout/Logout';
 import { Container } from './CurrentChat.style';
@@ -99,16 +99,18 @@ function CurrentChat({ currentChat, currentUser, socketClient }: props) {
             <h3>{currentChat?.userName}</h3>
           </div>
         </div>
-        <Logout />
+        <div className="logout">
+          <Logout />
+        </div>
       </div>
       <div className="chat-messages">
         <div className="chat-messages">
-          {messages.map((message, index: number) => {
+          {messages.map((message) => {
             return (
               <div ref={scrollRef} key={uuidv4()}>
                 <div
                   className={`message ${
-                    message.fromSelf ? 'sended' : 'recieved'
+                    message.fromSelf ? 'sended' : 'received'
                   }`}
                 >
                   <div className="content">

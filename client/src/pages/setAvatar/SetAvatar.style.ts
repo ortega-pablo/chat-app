@@ -5,16 +5,17 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
   gap: 3rem;
-  background-color: #131324;
+  background-color: ${(props) => props.theme.colors.background[3]};
   height: 100vh;
   width: 100vw;
   .loader {
     max-inline-size: 100%;
   }
-  .title-container {
+  .tittle-container {
     h1 {
-      color: white;
+      color: ${(props) => props.theme.colors.text[2]};
     }
   }
   .avatars {
@@ -37,12 +38,12 @@ export const Container = styled.div`
       }
     }
     .selected {
-      border: 0.4rem solid #1caee7;
+      border: 0.4rem solid ${(props) => props.theme.colors.primary100};
     }
   }
   .submit-btn {
-    background-color: #8d6a9f;
-    color: #d3d0d0;
+    background-color: ${(props) => props.theme.colors.secondary80};
+    color: ${(props) => props.theme.colors.text[1]};
     padding: 1rem 2rem;
     border: none;
     font-weight: bold;
@@ -51,7 +52,7 @@ export const Container = styled.div`
     font-size: 1rem;
     text-transform: uppercase;
     &:hover {
-      background-color: #a663cc;
+      background-color: ${(props) => props.theme.colors.secondary100};
     }
   }
 `;
