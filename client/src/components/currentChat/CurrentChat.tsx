@@ -99,11 +99,13 @@ function CurrentChat({ currentChat, currentUser, socketClient }: props) {
             <h3>{currentChat?.userName}</h3>
           </div>
         </div>
-        <Logout />
+        <div className="logout">
+          <Logout />
+        </div>
       </div>
       <div className="chat-messages">
         <div className="chat-messages">
-          {messages.map((message, index: number) => {
+          {messages.map((message) => {
             return (
               <div ref={scrollRef} key={uuidv4()}>
                 <div

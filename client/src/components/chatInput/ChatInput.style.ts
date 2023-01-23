@@ -13,6 +13,11 @@ export const InputContainer = styled.div`
     gap: 1rem;
     .emoji {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: black;
+      border-radius: 70%;
       svg {
         font-size: 1.5rem;
         color: ${(props) => props.theme.colors.smile};
@@ -21,6 +26,7 @@ export const InputContainer = styled.div`
       .EmojiPickerReact {
         position: absolute;
         top: -30rem;
+        left: 0.1rem;
         background-color: ${(props) => props.theme.colors.background[1]};
         box-shadow: 0 5px 10px ${(props) => props.theme.colors.primary80};
         border-color: ${(props) => props.theme.colors.primary80};

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-rows: 9% 82% 9%;
+  grid-template-rows: 5rem auto 4rem;
   gap: 0.1rem;
   overflow: hidden;
   .chat-header {
@@ -11,7 +11,9 @@ export const Container = styled.div`
     align-items: center;
     padding: 0 2rem;
     background-color: ${(props) => props.theme.colors.background[1]};
-
+    @media screen and (max-width: 720px) {
+      width: 95vw;
+    }
     .user-details {
       display: flex;
       align-items: center;
@@ -25,6 +27,11 @@ export const Container = styled.div`
         h3 {
           color: ${(props) => props.theme.colors.text[1]};
         }
+      }
+    }
+    .logout {
+      @media (max-width: 720px) {
+        display: none;
       }
     }
   }
@@ -76,5 +83,8 @@ export const Container = styled.div`
         border-top-left-radius: 0;
       }
     }
+  }
+  @media (max-width: 720px) {
+    grid-template-rows: 3rem calc(100vh - 15rem) 3rem;
   }
 `;

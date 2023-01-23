@@ -8,11 +8,12 @@ import Spinner from './components/spinner/Spinner';
 import './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import dark from './styles/themes/dark';
+import light from './styles/themes/light';
 import GlobalStyle from './styles/GlobalStyle';
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={dark}>
+    <ThemeProvider theme={light}>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>

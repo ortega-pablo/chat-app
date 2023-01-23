@@ -58,6 +58,7 @@ export const FormContainer = styled.div`
       }
     }
     span {
+      text-align: center;
       color: ${(props) => props.theme.colors.text[2]};
       a {
         color: ${(props) => props.theme.colors.text.link};

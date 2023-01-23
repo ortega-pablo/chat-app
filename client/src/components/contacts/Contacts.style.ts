@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 export const ContactsContainer = styled.div`
   display: grid;
-  grid-template-rows: 9% 82% 9%;
+  grid-template-rows: 5rem auto 4rem;
   overflow: hidden;
   background-color: ${(props) => props.theme.colors.background[1]};
+  padding-bottom: 0.2rem;
+  min-height: max-content;
   .brand {
     display: flex;
     align-items: center;
@@ -13,10 +15,16 @@ export const ContactsContainer = styled.div`
     img {
       height: 2.5rem;
       margin-right: 0.3rem;
+      @media (max-width: 720px) {
+        display: none;
+      }
     }
     h3 {
       color: ${(props) => props.theme.colors.text[1]};
       text-transform: uppercase;
+      @media (max-width: 720px) {
+        display: none;
+      }
     }
   }
   .contacts {
@@ -25,7 +33,7 @@ export const ContactsContainer = styled.div`
     align-items: center;
     overflow: auto;
     gap: 0.8rem;
-    padding-top: 0.2rem;
+    padding-top: 0.5rem;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
@@ -68,6 +76,7 @@ export const ContactsContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
     .avatar {
       img {
         height: 2.5rem;
@@ -82,5 +91,8 @@ export const ContactsContainer = styled.div`
         font-size: 1rem;
       }
     }
+  }
+  @media (max-width: 720px) {
+    grid-template-rows: 0 calc(100vh - 12rem) 3rem;
   }
 `;

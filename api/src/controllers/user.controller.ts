@@ -109,7 +109,7 @@ export const decryptToken = async (
         user
       });
     } catch (error) {
-      return res.status(400).json({
+      return res.status(201).json({
         message: 'Token incorrecto.',
         statusOk: false
       });

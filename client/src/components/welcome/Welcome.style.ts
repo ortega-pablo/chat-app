@@ -12,11 +12,18 @@ export const WelcomeContainer = styled.div`
   text-align: center;
   img {
     height: 60vh;
+    @media (max-width: 900px) {
+      height: 40vh;
+    }
     @media (max-width: 720px) {
       height: 30vh;
     }
   }
   span {
     color: ${(props) => props.theme.colors.primary100};
+  }
+  @media (max-width: 900px) {
+    height: calc(100vh - 9rem);
+    width: 95vw;
   }
 `;

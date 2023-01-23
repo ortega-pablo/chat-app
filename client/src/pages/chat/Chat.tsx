@@ -14,6 +14,10 @@ import { UserInterface } from '../../config/intefaces';
 import { ChatContainer } from './Chat.style';
 import io from 'socket.io-client';
 import EVENTS from '../../config/events';
+import ChatAppLogo from '../../assets/ChatAppLogo.png';
+import { TabPanel, useTabs } from 'react-headless-tabs';
+import { TabSelector } from './TabSelector';
+import Logout from '../../components/logout/Logout';
 
 //const socket = io(host);
 function Chat() {
@@ -24,6 +28,9 @@ function Chat() {
   const [currentChat, setCurrentChat] = useState<UserInterface | undefined>(
     undefined
   );
+
+  const [selectedTab, setSelectedTab] = useTabs(['chat', 'contacts']);
+
   const token = localStorage.getItem('token');
 
   const getCurrentUser = async (token: string) => {
@@ -46,6 +53,7 @@ function Chat() {
 
   const handleChatChange = (chat: UserInterface) => {
     setCurrentChat(chat);
+    setSelectedTab('chat');
   };
 
   useEffect(() => {
@@ -89,6 +97,49 @@ function Chat() {
             socketClient={socketClient}
           ></CurrentChat>
         )}
+      </div>
+      <div className="container-mobile">
+        <div className="brand">
+          <div>
+            <img src={ChatAppLogo} alt="Logo Chat App" />
+            <h3>Chat App</h3>
+          </div>
+          <Logout />
+        </div>
+        <div className="tab-headers">
+          <TabSelector
+            isActive={selectedTab === 'contacts'}
+            onClick={() => setSelectedTab('contacts')}
+          >
+            Contactos
+          </TabSelector>
+          <TabSelector
+            isActive={selectedTab === 'chat'}
+            onClick={() => setSelectedTab('chat')}
+          >
+            Chat
+          </TabSelector>
+        </div>
+        <div className="tab-content">
+          <TabPanel hidden={selectedTab !== 'contacts'}>
+            <Contacts
+              contacts={contacts}
+              currentUser={currentUser}
+              changeChat={handleChatChange}
+            />
+          </TabPanel>
+          <TabPanel hidden={selectedTab !== 'chat'}>
+            {currentChat === undefined ? (
+              <Welcome currentUser={currentUser} />
+            ) : (
+              <CurrentChat
+                currentChat={currentChat}
+                currentUser={currentUser}
+                socketClient={socketClient}
+              ></CurrentChat>
+            )}
+          </TabPanel>
+        </div>
       </div>
     </ChatContainer>
   );
