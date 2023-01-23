@@ -18,9 +18,13 @@ import ChatAppLogo from '../../assets/ChatAppLogo.png';
 import { TabPanel, useTabs } from 'react-headless-tabs';
 import { TabSelector } from './TabSelector';
 import Logout from '../../components/logout/Logout';
+import SwitchTheme from '../../components/switch/SwitchTheme';
 
+type props = {
+  changeTheme(): void;
+};
 //const socket = io(host);
-function Chat() {
+function Chat({ changeTheme }: props) {
   const navigate = useNavigate();
   const socketClient = useRef<SocketIOClient.Socket>();
   const [contacts, setContacts] = useState<UserInterface[]>([]);
@@ -39,11 +43,19 @@ function Chat() {
         Authorization: 'Bearer ' + token
       }
     };
-    const user = await axios.post(decryptTokenRoute, {}, config);
-    const { data } = await axios.get(
-      `${currentUserRoute}/${user.data.user.id}`
-    );
-    setCurrentUser(data.user);
+    await axios
+      .post(decryptTokenRoute, {}, config)
+      .then(async (response) => {
+        const { data } = await axios.get(
+          `${currentUserRoute}/${response.data.user.id}`
+        );
+        setCurrentUser(data.user);
+      })
+      .catch((error) => {
+        console.log(error);
+        localStorage.removeItem('token');
+        navigate('/login');
+      });
   };
 
   const getContacts = async (id: string) => {
@@ -87,6 +99,7 @@ function Chat() {
           contacts={contacts}
           currentUser={currentUser}
           changeChat={handleChatChange}
+          changeTheme={changeTheme}
         />
         {currentChat === undefined ? (
           <Welcome currentUser={currentUser} />
@@ -103,6 +116,9 @@ function Chat() {
           <div>
             <img src={ChatAppLogo} alt="Logo Chat App" />
             <h3>Chat App</h3>
+          </div>
+          <div className="switch">
+            <SwitchTheme changeTheme={changeTheme} />
           </div>
           <Logout />
         </div>
@@ -126,6 +142,7 @@ function Chat() {
               contacts={contacts}
               currentUser={currentUser}
               changeChat={handleChatChange}
+              changeTheme={changeTheme}
             />
           </TabPanel>
           <TabPanel hidden={selectedTab !== 'chat'}>

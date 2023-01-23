@@ -35,6 +35,10 @@ export const ChatContainer = styled.div`
         justify-content: space-around;
         width: 95vw;
         background-color: ${(props) => props.theme.colors.background[2]};
+        div {
+          display: flex;
+          align-items: center;
+        }
         img {
           height: 2.5rem;
           margin-right: 0.3rem;

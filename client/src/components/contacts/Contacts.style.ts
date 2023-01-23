@@ -42,6 +42,11 @@ export const ContactsContainer = styled.div`
         border-radius: 1rem;
       }
     }
+    .switch {
+      @media (max-width: 720px) {
+        display: none;
+      }
+    }
     .contact {
       background-color: ${(props) => props.theme.colors.background[1]};
       max-height: 3rem;

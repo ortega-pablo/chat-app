@@ -26,6 +26,8 @@ export const FormContainer = styled.div`
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 20rem;
     gap: 2rem;
     background-color: ${(props) => props.theme.colors.background[1]};

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getMessagesRoute, sendMessageRoute } from '../../config/APIRoutes';
 import EVENTS from '../../config/events';
-import { MessagesInterface, UserInterface } from '../../config/intefaces';
+import { UserInterface } from '../../config/intefaces';
 import ChatInput from '../chatInput/ChatInput';
 import Logout from '../logout/Logout';
 import { Container } from './CurrentChat.style';
