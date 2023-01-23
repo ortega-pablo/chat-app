@@ -16,6 +16,11 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/config/APIRoutes.ts", "src/config/events.ts", "src/config/intefaces.ts"],
+  "include": [
+    "src",
+    "src/config/APIRoutes.ts",
+    "src/config/events.ts",
+    "src/config/intefaces.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
