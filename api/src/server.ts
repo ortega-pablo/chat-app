@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const options = {
   cors: {
-    origin: config.server.corsOrigin
+    origin: `http://${config.DB.host}:${config.DB.port}`
   }
 };
 
