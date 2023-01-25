@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const options = {
   cors: {
-    origin: `http://${config.DB.host}:${config.DB.port}`
+    origin: config.client.host || '*'
   }
 };
 
@@ -19,6 +19,5 @@ const io = new Server(server, options);
 
 server.listen(config.server.port, () => {
   console.log(`Server is running on port ${config.server.port}}`);
-  console.log(`Host: http://${config.server.host}:${config.server.port}`);
 });
 socket({ io });
