@@ -21,7 +21,6 @@ function socket({ io }: { io: Server }) {
     });
 
     socket.on(EVENTS.SEND, (data) => {
-      console.log('Mensaje: ', data);
       const sendUserSocket = onlineUsers.get(data.to);
       if (sendUserSocket) {
         socket.to(sendUserSocket).emit(EVENTS.RECEIVE, data.message);

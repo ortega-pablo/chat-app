@@ -71,7 +71,6 @@ function CurrentChat({ currentChat, currentUser, socketClient }: props) {
           fromSelf: false,
           message: msg
         };
-        console.log('El tipo de arrivalMessage es : ', typeof arrival);
         setArrivalMessage(arrival);
       });
     }
