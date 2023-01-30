@@ -4,7 +4,6 @@ import { getMessagesRoute, sendMessageRoute } from '../../config/APIRoutes';
 import EVENTS from '../../config/events';
 import { UserInterface } from '../../config/intefaces';
 import ChatInput from '../chatInput/ChatInput';
-import Logout from '../logout/Logout';
 import { Container } from './CurrentChat.style';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -97,9 +96,6 @@ function CurrentChat({ currentChat, currentUser, socketClient }: props) {
           <div className="user-name">
             <h3>{currentChat?.userName}</h3>
           </div>
-        </div>
-        <div className="logout">
-          <Logout />
         </div>
       </div>
       <div className="chat-messages">
