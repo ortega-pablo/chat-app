@@ -29,11 +29,6 @@ export const Container = styled.div`
         }
       }
     }
-    .logout {
-      @media (max-width: 720px) {
-        display: none;
-      }
-    }
   }
   .chat-messages {
     padding: 1rem 2rem;

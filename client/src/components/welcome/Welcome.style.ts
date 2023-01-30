@@ -22,7 +22,7 @@ export const WelcomeContainer = styled.div`
   span {
     color: ${(props) => props.theme.colors.primary100};
   }
-  @media (max-width: 900px) {
+  @media (max-width: 720px) {
     height: calc(100vh - 9rem);
     width: 95vw;
   }

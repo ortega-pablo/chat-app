@@ -19,6 +19,11 @@ export const ChatContainer = styled.div`
       display: none;
     }
   }
+  .logout {
+    position: fixed;
+    left: calc(92.5vw - 4rem);
+    top: calc(7.5vh + 1.25rem);
+  }
   .container-mobile {
     display: none;
     @media (max-width: 720px) {

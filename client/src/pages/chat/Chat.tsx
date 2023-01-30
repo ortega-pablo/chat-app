@@ -110,6 +110,9 @@ function Chat({ changeTheme }: props) {
             socketClient={socketClient}
           ></CurrentChat>
         )}
+        <div className="logout">
+          <Logout />
+        </div>
       </div>
       <div className="container-mobile">
         <div className="brand">
