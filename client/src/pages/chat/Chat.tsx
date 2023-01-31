@@ -19,6 +19,7 @@ import { TabPanel, useTabs } from 'react-headless-tabs';
 import { TabSelector } from './TabSelector';
 import Logout from '../../components/logout/Logout';
 import SwitchTheme from '../../components/switch/SwitchTheme';
+import Menu from '../../components/menu/Menu';
 
 type props = {
   changeTheme(): void;
@@ -123,6 +124,7 @@ function Chat({ changeTheme }: props) {
           <div className="switch">
             <SwitchTheme changeTheme={changeTheme} />
           </div>
+          <Menu />
           <Logout />
         </div>
         <div className="tab-headers">
