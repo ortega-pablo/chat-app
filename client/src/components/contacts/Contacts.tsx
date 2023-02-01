@@ -3,7 +3,6 @@ import { ContactsContainer } from './Contacts.style';
 import { UserInterface } from '../../config/intefaces';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
 import { FaUserCircle } from 'react-icons/fa';
-import SwitchTheme from '../switch/SwitchTheme';
 
 type props = {
   contacts: UserInterface[];
@@ -37,9 +36,6 @@ function Contacts({ contacts, currentUser, changeChat, changeTheme }: props) {
             <h3>Chat App</h3>
           </div>
           <div className="contacts">
-            <div className="switch">
-              <SwitchTheme changeTheme={changeTheme} />
-            </div>
             {contacts.map((contact, index) => {
               return (
                 <div

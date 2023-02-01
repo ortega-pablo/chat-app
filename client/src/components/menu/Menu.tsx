@@ -25,6 +25,11 @@ function Menu({ changeTheme }: props) {
     localStorage.clear();
     navigate('/login');
   };
+
+  const hadleClickProfile = async () => {
+    navigate('/profile');
+  };
+
   return (
     <MenuContainer>
       <MenuButton onClick={handleChangeMenuOpen}>
@@ -32,7 +37,7 @@ function Menu({ changeTheme }: props) {
       </MenuButton>
       {isOpen && (
         <DropdownMenu>
-          <MenuItem>Perfil</MenuItem>
+          <MenuItem onClick={hadleClickProfile}>Perfil</MenuItem>
           <MenuItem onClick={handleClickLogout}>Logout</MenuItem>
           <MenuItem>
             <SwitchTheme changeTheme={changeTheme} />

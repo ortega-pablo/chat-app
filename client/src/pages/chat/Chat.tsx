@@ -119,7 +119,6 @@ function Chat({ changeTheme }: props) {
             <img src={ChatAppLogo} alt="Logo Chat App" />
             <h3>Chat App</h3>
           </div>
-          <div className="switch"></div>
           <Menu changeTheme={changeTheme} />
         </div>
         <div className="tab-headers">

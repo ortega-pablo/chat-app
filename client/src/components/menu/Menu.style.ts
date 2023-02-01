@@ -43,6 +43,7 @@ export const MenuItem = styled.li`
   list-style-type: none;
   padding: 0rem 1rem;
   font-size: 1.5rem;
+  color: ${(props) => props.theme.colors.text[3]};
   :hover {
     color: ${(props) => props.theme.colors.primary100};
   }
