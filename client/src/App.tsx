@@ -11,6 +11,7 @@ import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 import GlobalStyle from './styles/GlobalStyle';
 import UsePersistedState from './config/UsePersistedState';
+import Profile from './pages/profile/Profile';
 
 const App: React.FC = () => {
   const [theme, setTheme] = UsePersistedState<DefaultTheme>('theme', light);
@@ -31,6 +32,7 @@ const App: React.FC = () => {
           />
           <Route path="/login" element={<Login changeTheme={changeTheme} />} />
           <Route path="/setAvatar" element={<SetAvatar />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/spinner" element={<Spinner />} />
         </Routes>
       </BrowserRouter>

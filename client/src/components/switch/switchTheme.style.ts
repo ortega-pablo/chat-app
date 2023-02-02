@@ -5,6 +5,6 @@ export const SwitchContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: ${(props) => props.theme.colors.text[2]};
+  color: ${(props) => props.theme.colors.text[3]};
   width: 80px;
 `;

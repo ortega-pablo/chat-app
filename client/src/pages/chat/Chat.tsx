@@ -17,8 +17,7 @@ import EVENTS from '../../config/events';
 import ChatAppLogo from '../../assets/ChatAppLogo.png';
 import { TabPanel, useTabs } from 'react-headless-tabs';
 import { TabSelector } from './TabSelector';
-import Logout from '../../components/logout/Logout';
-import SwitchTheme from '../../components/switch/SwitchTheme';
+import Menu from '../../components/menu/Menu';
 
 type props = {
   changeTheme(): void;
@@ -99,7 +98,6 @@ function Chat({ changeTheme }: props) {
           contacts={contacts}
           currentUser={currentUser}
           changeChat={handleChatChange}
-          changeTheme={changeTheme}
         />
         {currentChat === undefined ? (
           <Welcome currentUser={currentUser} />
@@ -110,8 +108,8 @@ function Chat({ changeTheme }: props) {
             socketClient={socketClient}
           ></CurrentChat>
         )}
-        <div className="logout">
-          <Logout />
+        <div className="menu-button">
+          <Menu changeTheme={changeTheme} />
         </div>
       </div>
       <div className="container-mobile">
@@ -120,10 +118,7 @@ function Chat({ changeTheme }: props) {
             <img src={ChatAppLogo} alt="Logo Chat App" />
             <h3>Chat App</h3>
           </div>
-          <div className="switch">
-            <SwitchTheme changeTheme={changeTheme} />
-          </div>
-          <Logout />
+          <Menu changeTheme={changeTheme} />
         </div>
         <div className="tab-headers">
           <TabSelector
@@ -145,7 +140,6 @@ function Chat({ changeTheme }: props) {
               contacts={contacts}
               currentUser={currentUser}
               changeChat={handleChatChange}
-              changeTheme={changeTheme}
             />
           </TabPanel>
           <TabPanel hidden={selectedTab !== 'chat'}>

@@ -8,3 +8,4 @@ export const getAllUsersRoute = `${host}/api/user/allUsers`;
 export const currentUserRoute = `${host}/api/user`;
 export const sendMessageRoute = `${host}/api/message/add`;
 export const getMessagesRoute = `${host}/api/message`;
+export const changePass = `${host}/api/user/changePass`;
