@@ -98,7 +98,6 @@ function Chat({ changeTheme }: props) {
           contacts={contacts}
           currentUser={currentUser}
           changeChat={handleChatChange}
-          changeTheme={changeTheme}
         />
         {currentChat === undefined ? (
           <Welcome currentUser={currentUser} />
@@ -141,7 +140,6 @@ function Chat({ changeTheme }: props) {
               contacts={contacts}
               currentUser={currentUser}
               changeChat={handleChatChange}
-              changeTheme={changeTheme}
             />
           </TabPanel>
           <TabPanel hidden={selectedTab !== 'chat'}>

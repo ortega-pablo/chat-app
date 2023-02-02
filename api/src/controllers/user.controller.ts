@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import User, { UserInterface } from '../models/user.model';
+import bcrypt from 'bcrypt';
 
 function createToken(user: UserInterface) {
   return jwt.sign(
@@ -92,7 +93,6 @@ export const decryptToken = async (
   try {
     const headerToken = req.header('Authorization');
     if (!headerToken) {
-      console.log('Token no enviado');
       return res.status(400).json({
         message: 'Token incorrecto.',
         statusOk: false
@@ -132,7 +132,6 @@ export const setAvatar = async (
     const id = req.params.userId;
     const { setAvatar, avatarImage } = req.body;
     if (!id) {
-      console.log('ID no enviado');
       return res.status(400).json({
         message: 'Token incorrecto.',
         statusOk: false
@@ -205,6 +204,63 @@ export const currentUser = async (
       statusOk: true,
       user
     });
+  } catch (error) {
+    if (error instanceof Error) {
+      return res.status(500).json({ message: error.message, statusOk: false });
+    }
+    return res
+      .status(500)
+      .json({ message: 'Error en el Servidor', statusOk: false });
+  }
+};
+
+export const changePass = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const id = req.params.userId;
+    const { oldPassword, newPassword } = req.body;
+    if (!id) {
+      return res.status(400).json({
+        message: 'Token incorrecto.',
+        statusOk: false
+      });
+    }
+    const user = await User.findById({ _id: id });
+    try {
+      if (user) {
+        const isMatch = await user.comparePassword(oldPassword);
+
+        if (isMatch) {
+          const salt = await bcrypt.genSalt(10);
+          const hash = await bcrypt.hash(newPassword, salt);
+          await User.findByIdAndUpdate(id, {
+            password: hash
+          });
+
+          return res.status(200).json({
+            message: 'Contraseña cambiada correctamente.',
+            statusOk: true
+          });
+        } else {
+          return res.status(400).json({
+            message: 'La contraseña original es incorrecta',
+            statusOk: false
+          });
+        }
+      } else {
+        return res.status(400).json({
+          message: 'Usuario no encontrado.',
+          statusOk: false
+        });
+      }
+    } catch (error) {
+      return res.status(400).json({
+        message: 'Error al cambiar contraseña',
+        statusOk: false
+      });
+    }
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ message: error.message, statusOk: false });

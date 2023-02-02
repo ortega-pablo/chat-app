@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BiDotsVerticalRounded, BiX } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import SwitchTheme from '../switch/SwitchTheme';
 import {
   DropdownMenu,
@@ -22,8 +23,17 @@ function Menu({ changeTheme }: props) {
   };
 
   const handleClickLogout = async () => {
-    localStorage.clear();
-    navigate('/login');
+    await Swal.fire({
+      title: '¿Seguro que quieres salir?',
+      showCancelButton: true,
+      confirmButtonText: 'Salir'
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        localStorage.clear();
+        navigate('/login');
+      }
+    });
   };
 
   const hadleClickProfile = async () => {

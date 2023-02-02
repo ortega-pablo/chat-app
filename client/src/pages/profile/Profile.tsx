@@ -6,11 +6,13 @@ import { currentUserRoute, decryptTokenRoute } from '../../config/APIRoutes';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BiX } from 'react-icons/bi';
+import ChangePass from '../../components/changePass/ChangePass';
 
 function Profile() {
   const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState<UserInterface>();
+  const [changePass, setChangePass] = useState<boolean>(false);
 
   const token = localStorage.getItem('token');
 
@@ -41,13 +43,15 @@ function Profile() {
   const handleCloseProfile = () => {
     navigate('/');
   };
+  const handleClickPass = () => {
+    setChangePass(!changePass);
+  };
 
   useEffect(() => {
     if (!token) {
       navigate('/login');
     } else {
       getCurrentUser(token);
-      console.log(currentUser);
     }
   }, []);
 
@@ -74,8 +78,14 @@ function Profile() {
           />
         </div>
         <button onClick={handleClickAvatar}>Cambiar avatar</button>
-        <button>Cambiar contraseña</button>
+        <button onClick={handleClickPass}>Cambiar contraseña</button>
       </ProfileBox>
+      {changePass && (
+        <ChangePass
+          handleClickPass={handleClickPass}
+          userId={currentUser?._id}
+        />
+      )}
     </Container>
   );
 }

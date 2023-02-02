@@ -8,10 +8,9 @@ type props = {
   contacts: UserInterface[];
   currentUser: UserInterface | undefined;
   changeChat: (chat: UserInterface) => void;
-  changeTheme(): void;
 };
 
-function Contacts({ contacts, currentUser, changeChat, changeTheme }: props) {
+function Contacts({ contacts, currentUser, changeChat }: props) {
   const [userName, setUserName] = useState<string>();
   const [userImage, setUserImage] = useState<string>();
   const [Selected, setSelected] = useState<number | undefined>(undefined);
