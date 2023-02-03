@@ -36,6 +36,10 @@ export const Container = styled.div`
         height: 6rem;
         transition: 0.5s ease-in-out;
       }
+      cursor: pointer;
+      :hover {
+        border: 0.4rem solid ${(props) => props.theme.colors.primary40};
+      }
     }
     .selected {
       border: 0.4rem solid ${(props) => props.theme.colors.primary100};
